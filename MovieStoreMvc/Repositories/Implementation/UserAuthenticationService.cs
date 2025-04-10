@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MovieStoreMvc.Models.Domain;
-using MovieStoreMvc.Models.DTO;
-using MovieStoreMvc.Repositories.Abstract;
+using BookStoreMvc.Models.Domain;
+using BookStoreMvc.Models.DTO;
+using BookStoreMvc.Repositories.Abstract;
 using System.Security.Claims;
 
-namespace MovieStoreMvc.Repositories.Implementation
+namespace BookStoreMvc.Repositories.Implementation
 {
     public class UserAuthenticationService : IUserAuthenticationService
     {
@@ -80,7 +80,7 @@ namespace MovieStoreMvc.Repositories.Implementation
                 return status;
             }
 
-            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password,true,true) ;
+            var signInResult = await signInManager.PasswordSignInAsync(user, model.Password,true,true);
             if (signInResult.Succeeded)
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -116,30 +116,5 @@ namespace MovieStoreMvc.Repositories.Implementation
 
         }
 
-        //public async Task<Status> ChangePasswordAsync(ChangePasswordModel model, string username)
-        //{
-        //    var status = new Status();
-
-        //    var user = await userManager.FindByNameAsync(username);
-        //    if (user == null)
-        //    {
-        //        status.Message = "User does not exist";
-        //        status.StatusCode = 0;
-        //        return status;
-        //    }
-        //    var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-        //    if (result.Succeeded)
-        //    {
-        //        status.Message = "Password has updated successfully";
-        //        status.StatusCode = 1;
-        //    }
-        //    else
-        //    {
-        //        status.Message = "Some error occcured";
-        //        status.StatusCode = 0;
-        //    }
-        //    return status;
-
-        //}
     }
 }

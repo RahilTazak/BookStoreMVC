@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "MovieStoreMvc": {
+    "BookStoreMvc": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

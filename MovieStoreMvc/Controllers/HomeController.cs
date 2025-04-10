@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MovieStoreMvc.Repositories.Abstract;
+using BookStoreMvc.Repositories.Abstract;
 
-namespace MovieStoreMvc.Controllers
+namespace BookStoreMvc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMovieService _movieService;
-        public HomeController(IMovieService movieService)
+        private readonly IBookService _BookService;
+        public HomeController(IBookService BookService)
         {
-            _movieService = movieService;
+            _BookService = BookService;
         }
         public IActionResult Index(string term="", int currentPage = 1)
         {
-            var movies = _movieService.List(term,true,currentPage);
-            return View(movies);
+            var Books = _BookService.List(term,true,currentPage);
+            return View(Books);
         }
 
         public IActionResult About()
@@ -21,10 +21,10 @@ namespace MovieStoreMvc.Controllers
             return View();
         }
 
-        public IActionResult MovieDetail(int movieId)
+        public IActionResult BookDetail(int BookId)
         {
-            var movie = _movieService.GetById(movieId);
-            return View(movie);
+            var Book = _BookService.GetById(BookId);
+            return View(Book);
         }
 
     }

@@ -1,7 +1,7 @@
-﻿using MovieStoreMvc.Models.Domain;
-using MovieStoreMvc.Repositories.Abstract;
+﻿using BookStoreMvc.Models.Domain;
+using BookStoreMvc.Repositories.Abstract;
 
-namespace MovieStoreMvc.Repositories.Implementation
+namespace BookStoreMvc.Repositories.Implementation
 {
     public class GenreService : IGenreService
     {
@@ -14,7 +14,7 @@ namespace MovieStoreMvc.Repositories.Implementation
         {
             try
             {
-                ctx.Genre.Add(model);
+                ctx.Genres.Add(model);
                 ctx.SaveChanges();
                 return true;
             }
@@ -31,7 +31,7 @@ namespace MovieStoreMvc.Repositories.Implementation
                 var data = this.GetById(id);
                 if (data == null)
                     return false;
-                ctx.Genre.Remove(data);
+                ctx.Genres.Remove(data);
                 ctx.SaveChanges();
                 return true;
             }
@@ -43,12 +43,12 @@ namespace MovieStoreMvc.Repositories.Implementation
 
         public Genre GetById(int id)
         {
-            return ctx.Genre.Find(id);
+            return ctx.Genres.Find(id);
         }
 
         public IQueryable<Genre> List()
         {
-            var data = ctx.Genre.AsQueryable();
+            var data = ctx.Genres.AsQueryable();
             return data;
         }
 
@@ -56,7 +56,7 @@ namespace MovieStoreMvc.Repositories.Implementation
         {
             try
             {
-                ctx.Genre.Update(model);
+                ctx.Genres.Update(model);
                 ctx.SaveChanges();
                 return true;
             }

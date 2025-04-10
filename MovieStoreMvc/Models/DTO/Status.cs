@@ -1,4 +1,4 @@
-﻿namespace MovieStoreMvc.Models.DTO
+﻿namespace BookStoreMvc.Models.DTO
 {
     public class Status
     {

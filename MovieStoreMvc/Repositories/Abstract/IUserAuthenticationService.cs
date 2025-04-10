@@ -1,6 +1,6 @@
-﻿using MovieStoreMvc.Models.DTO;
+﻿using BookStoreMvc.Models.DTO;
 
-namespace MovieStoreMvc.Repositories.Abstract
+namespace BookStoreMvc.Repositories.Abstract
 {
     public interface IUserAuthenticationService
     {
@@ -8,6 +8,5 @@ namespace MovieStoreMvc.Repositories.Abstract
         Task<Status> LoginAsync(LoginModel model);
         Task LogoutAsync();
         Task<Status> RegisterAsync(RegistrationModel model);
-        //Task<Status> ChangePasswordAsync(ChangePasswordModel model, string username);
     }
 }

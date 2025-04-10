@@ -88,31 +88,53 @@ body {
   width: 100%; 
   padding: 0 2%;
 }
+
 .search-bar input[type="text"]{
   padding: 0.7rem;
   border: 1px solid lightgray;
-  border-radius: 0.25rem;
+  border-radius: 0.50rem;
   font-size: 1rem;
-  width: 25%;
-}
-.search-bar button{
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  padding: 0.7rem 0.9rem;
-  border: none;
-  background-color: rgb(192, 192, 192);
-  color: black;
-  cursor: pointer;
+  width: 50% !important;
+  height: 35px !important;
 }
 
-.movies {
+.search-bar button {
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        border: none;
+        background-color: rgb(192, 192, 192);
+        color: black;
+        cursor: pointer;
+        width: 35px !important;
+        height: 35px !important;
+}
+
+.search-bar a {
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  width: 35px !important;
+  height: 35px !important;
+  text-decoration-line: none;
+  padding: 5px;
+}
+
+.search-bar a:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.Books {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
   /* background-color: red; */
   font-family: var(--font-mukta);
 }
-.movie-card {
+.Book-card {
     padding: 2%;
     margin: 2%;
     /*flex-basis: 16%;*/
@@ -124,12 +146,12 @@ body {
     /* background-color: yellow; */
 }
 
-.movie-card:hover {
+.Book-card:hover {
   cursor: pointer;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 18px 30px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
 }
-.movie-image img {
+.Book-image img {
   width: 100%;
 }
 
@@ -216,7 +238,7 @@ footer {
 }
 /* utilities end */
 
-.movie-detail {
+.Book-detail {
   display: flex;
   font-family: var(--font-mukta);
   max-height: 50%;
@@ -237,17 +259,17 @@ footer {
 /* Media queries */
 
 @media (max-width: 920px) {
-  .movie-card {
+  .Book-card {
     flex-basis: 21%;
   }
 }
 
 @media (max-width: 600px) {
-  .movie-card {
+  .Book-card {
     flex-basis: 46%;
   }
 
-  .movie-detail {
+  .Book-detail {
     display: flex;
    flex-direction: column;
   }
@@ -257,7 +279,7 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .movie-card {
+  .Book-card {
     flex-basis: 96%;
   }
 }

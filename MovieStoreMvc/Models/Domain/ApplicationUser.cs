@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace MovieStoreMvc.Models.Domain
+namespace BookStoreMvc.Models.Domain
 {
     public class ApplicationUser : IdentityUser
     {

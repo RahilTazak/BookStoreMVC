@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieStoreMvc.Models.Domain;
-using MovieStoreMvc.Repositories.Abstract;
+using BookStoreMvc.Models.Domain;
+using BookStoreMvc.Repositories.Abstract;
 
-namespace MovieStoreMvc.Controllers
+namespace BookStoreMvc.Controllers
 {
     [Authorize]
     public class GenreController : Controller

@@ -1,0 +1,21 @@
+﻿@model BookStoreMvc.Models.Domain.Book
+@{
+}
+<div class="Book-detail w-80 m-auto">
+    <div class="img-container">
+        <img alt="image" src="/Uploads/@Model.BookImage">
+    </div>
+
+    <div class="detail-container">
+        <h3>@Model.Title</h3>
+        <h4>@Model.GenreNames</h4>
+        <h4>@Model.ReleaseYear</h4>
+        <h4>Author : @Model.Author</h4>
+    </div>
+</div>
+<div class="w-80 m-auto">
+    <a href="/Home/Index" class="btn btn-default">Back</a>
+</div>
+<div class="w-80 m-auto">
+    <a href="#" class="btn btn-primary">Add To Cart</a>
+</div>

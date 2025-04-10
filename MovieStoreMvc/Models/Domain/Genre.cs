@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieStoreMvc.Models.Domain
+namespace BookStoreMvc.Models.Domain
 {
     public class Genre
     {

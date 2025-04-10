@@ -8,9 +8,10 @@
     --primary-color:rgb(65,65,65);
 }
 
-form{
+/*form{
     font-family:'Mukta', sans-serif;
 }
+    */
 
 .message-box{
   font-size: 16px;
@@ -28,8 +29,7 @@ label{
     padding-top:0.8rem;
     font-size: 16px;
     display: block;
-  color: var(--primary-color);
-
+    color: var(--primary-color);
 }
 .input {
     padding: 0 0.5rem;
@@ -42,8 +42,8 @@ label{
 }
 
 .alert{
-    background-color:rgb(177, 228, 249);
-    padding: 0.5rem;
+  background-color:rgb(177, 228, 249);
+  padding: 0.5rem;
   font-size: 17px;
   color: var(--primary-color);
   border-radius: 5px;
