@@ -43,28 +43,28 @@
 
             {
                 <li>
+                    <a href="/CartItems/GetUserCart">Cart</a>
                     <a href="#">@username <i class="fa fa-caret-down"></i></a>
 
                     <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
-                        <li><a href="/CartItems/GetUserCart">Cart</a></li>
-
                         <li><a href="/UserAuthentication/Logout">Logout</a></li>
                     </ul>
                 </li>
             }
-            else{
+            else
+            {
                 <li><a href="/UserAuthentication/Login">Login</a></li>
                 <li><a href="/UserAuthentication/Register">Register</a></li>
             }
         </ul>
     </nav>
     <div class="container">
-       @RenderBody()
+        @RenderBody()
     </div>
     <footer>
         &#169; @DateTime.UtcNow.Year Rahil Tazak
     </footer>
 
-    <script src = "~/lib/bootstrap/dist/js//bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js//bootstrap.min.js"></script>
 </body>
 </html>
