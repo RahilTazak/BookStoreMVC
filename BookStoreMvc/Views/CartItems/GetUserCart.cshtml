@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BookStoreMvc.Models.DTO.CartItem>
+
+@{
+    ViewData["Title"] = "GetUserCart";
+}
+
+<h2>My Cart</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Book.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <form asp-controller="CartItems" asp-action="RemoveFromCart" method="post">
+                        <input type="hidden" name="BookId" value="@item.Id" />
+                        <button type="submit" class="bg-black text-white mt-3 py-2 px-2 fs-6">Delete</button>
+                    </form>
+                </td>
+               
+
+            </tr>
+        }
+    </tbody>
+</table>

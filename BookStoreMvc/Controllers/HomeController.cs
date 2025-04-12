@@ -24,6 +24,7 @@ namespace BookStoreMvc.Controllers
         public IActionResult BookDetail(int BookId)
         {
             var Book = _BookService.GetById(BookId);
+            ViewData["msg"] = TempData["msg"];
             return View(Book);
         }
 

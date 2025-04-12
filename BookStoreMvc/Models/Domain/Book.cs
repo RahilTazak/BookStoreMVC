@@ -18,6 +18,9 @@ namespace BookStoreMvc.Models.Domain
         [Required]
         public string? Author { get; set; }
 
+        [Required]
+        public double? Price { get; set; }
+
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
         [NotMapped]

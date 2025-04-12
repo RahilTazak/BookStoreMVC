@@ -59,7 +59,18 @@ namespace BookStoreMvc.Repositories.Implementation
 
         public Book GetById(int id)
         {
-            return ctx.Books.Find(id);
+            var BookDetail = ctx.Books.Find(id);
+            int BookId = BookDetail.Id;
+            var genres = (from genre in ctx.Genres
+                          join mg in ctx.BookGenres
+                          on genre.Id equals mg.GenreId
+                          where mg.BookId == BookId
+                          select genre.GenreName
+                              ).ToList();
+            var genreNames = string.Join(", ", genres);
+            BookDetail.GenreNames = genreNames;
+
+            return BookDetail ;
         }
 
         public BookListVm List(string term="",bool paging=false, int currentPage=0)
@@ -95,7 +106,7 @@ namespace BookStoreMvc.Repositories.Implementation
                               where mg.BookId == Book.Id
                               select genre.GenreName
                               ).ToList();
-                var genreNames = string.Join(',', genres);
+                var genreNames = string.Join(", ", genres);
                 Book.GenreNames = genreNames;
             }
             data.BookList = list.AsQueryable();

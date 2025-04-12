@@ -4,36 +4,41 @@
 <section class="search-bar text-center">
     <form method="get" asp-action="Index">
         <input type="text" name="term" placeholder="search here">
-        
+
         <button type="submit"><i class="fa fa-search"></i></button>
-        <a href="/Home/Index">All</a>
+        <a href="/Home/Index">All Books</a>
     </form>
 </section>
 <section class="Books">
-    @foreach(var Book in Model.BookList){
+    @foreach (var Book in Model.BookList)
+    {
         <div class="Book-card" onclick="window.location.href='/Home/BookDetail?BookId=@Book.Id'">
-        <div class="Book-image">
-            <img src="/Uploads/@Book.BookImage">
-        </div>
-        <div class="Book-info">
-            <h4>@Book.Title</h4>
-                <h4>@Book.GenreNames</h4>
-                <h4>@Book.ReleaseYear</h4>
-                <h4>Author : @Book.Author</h4>
-        </div>
-    </div>
+            <div class="Book-image">
+                <img src="/Uploads/@Book.BookImage">
+            </div>
+            <div class="Book-info pt-3">
+                <h6><b>@Book.Title</b></h6>
+                <div><b>Genre: </b></div><h6>@Book.GenreNames</h6></div>
+                <div><b>Release Year: </b><h6>@Book.ReleaseYear</h6></div>
+                <div><b>Author : </b><h6>@Book.Author</h6></div>
+                <div><b>Price : </b><h6>$@Book.Price</h6></div>
+   </div>
+        
     }
 </section>
 
 <div class="pagination">
-    @for(int i=1;i<=Model.TotalPages;i++){
-        if(i==Model.CurrentPage){
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i == Model.CurrentPage)
+        {
             <a href="/Home/Index?currentPage=@i&term=@Model.Term" class="active">@i</a>
         }
-        else{
+        else
+        {
             <a href="/Home/Index?currentPage=@i&term=@Model.Term">@i</a>
 
         }
     }
-   
+
 </div>

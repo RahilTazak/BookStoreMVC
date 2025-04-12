@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BookStoreMvc.Models.DTO;
 
 namespace BookStoreMvc.Models.Domain
 {
@@ -13,5 +14,6 @@ namespace BookStoreMvc.Models.Domain
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BookGenres> BookGenres { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

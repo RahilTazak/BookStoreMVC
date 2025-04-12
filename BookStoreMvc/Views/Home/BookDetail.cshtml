@@ -1,21 +1,30 @@
 ﻿@model BookStoreMvc.Models.Domain.Book
-@{
-}
-<div class="Book-detail w-80 m-auto">
+
+<div class="Book-detail w-80">
     <div class="img-container">
         <img alt="image" src="/Uploads/@Model.BookImage">
     </div>
 
-    <div class="detail-container">
-        <h3>@Model.Title</h3>
-        <h4>@Model.GenreNames</h4>
-        <h4>@Model.ReleaseYear</h4>
-        <h4>Author : @Model.Author</h4>
+    <div class="detail-container pt-3">
+        <div>
+            <input type="hidden" class="input" asp-for="@Model.Id">
+            <h5><b>@Model.Title</b></h5>
+            <b>Genre: </b><h6>@Model.GenreNames</h6>
+            <b>Release Year: </b><h6>@Model.ReleaseYear</h6>
+            <b>Author : </b><h6>@Model.Author</h6>
+            <b>Price : </b><h6>$@Model.Price</h6>
+            <form asp-controller="CartItems" asp-action="AddToCart" method="post">
+                <input type="hidden" name="BookId" value="@Model.Id" />
+                <button type="submit" class="bg-black text-white mt-3 py-2 px-2 fs-6">ADD TO CART</button>
+                @if (ViewData["msg"] != null)
+                {
+                    <h5>@ViewData["msg"]</h5>
+                }
+            </form>
+
+        </div>
     </div>
 </div>
-<div class="w-80 m-auto">
-    <a href="/Home/Index" class="btn btn-default">Back</a>
-</div>
-<div class="w-80 m-auto">
-    <a href="#" class="btn btn-primary">Add To Cart</a>
+<div class="w-80 mt-3">
+    <a href="/Home/Index" class="bg-black text-white mt-3 py-2 px-2 fs-6 text-decoration-none">Back</a>
 </div>

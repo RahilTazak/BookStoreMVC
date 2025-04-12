@@ -5,11 +5,12 @@
 <div class="tbl-container">
     <h2>Books</h2>
 
-    <section class="search-bar" style="padding-left: 0">
+    <section class="search-bar ps-0">
         <form method="get" asp-action="BookList">
             <input type="text" name="term" placeholder="search here">
+
             <button type="submit"><i class="fa fa-search"></i></button>
-            <a class="btn btn-primary" href="/Book/BookList">All Books</a>
+            <a href="/Home/Index">All Books</a>
         </form>
     </section>
 
@@ -20,6 +21,7 @@
             <th>Release Year</th>
             <th>Image</th>
             <th>Author</th>
+            <th>Price</th>
             <th>Action</th>
         </tr>
         @foreach(var item in Model.BookList){
@@ -29,6 +31,7 @@
                 <td>@item.ReleaseYear</td>
             <td><img style="height:60px;width:80px" src="/Uploads/@item.BookImage"/></td>
                 <td>@item.Author</td>
+                <td>$@item.Price</td>
                 <td>
                 <a href="/Book/Edit?id=@item.Id" class="btn btn-default"><i class="fa fa-edit"></i></a>
                 <a onclick="return window.confirm('Are you sure?')" href="/Book/Delete?id=@item.Id" class="btn btn-danger"><i class="fa fa-trash"></i></a>
