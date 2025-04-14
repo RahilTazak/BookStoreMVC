@@ -130,6 +130,15 @@ namespace BookStoreMvc.Repositories.Implementation
                                   .Where(a => a.UserId == userId).ToListAsync();
             return shoppingCart;
         }
+        public async Task<int> GetCartItemCount()
+        {
+            var userId = GetUserId();
+            if (userId == null)
+                throw new InvalidOperationException("Invalid Userid");
+            
+            var count = await ctx.CartItems.Where(a=>a.UserId==userId).Select(b=>b.Quantity).ToListAsync();
+            return count.Sum();
+        }
     }
 }
 

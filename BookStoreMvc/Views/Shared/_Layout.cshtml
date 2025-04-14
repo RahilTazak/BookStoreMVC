@@ -42,9 +42,14 @@
             else if (User.IsInRole("User"))
 
             {
+                <li class="nav-item">
+                    <a class="nav-link gap-1" href="/CartItems/GetUserCart">
+                        Cart
+                        <span id="cartCount" class="badge bg-black text-white">0</span>
+                    </a>
+                </li>
                 <li>
-                    <a href="/CartItems/GetUserCart">Cart</a>
-                    <a href="#">@username <i class="fa fa-caret-down"></i></a>
+                    <a href="#"><b>Hello @username! </b><i class="fa fa-caret-down"></i></a>
 
                     <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
                         <li><a href="/UserAuthentication/Logout">Logout</a></li>
@@ -67,4 +72,22 @@
 
     <script src="~/lib/bootstrap/dist/js//bootstrap.min.js"></script>
 </body>
+
+<script>
+    loadCartCount();
+    async function loadCartCount() {
+        try {
+        var response = await fetch(`/CartItems/GetTotalItemInCart`);
+          console.log(response)
+            if (response.status == 200) {
+                var result = await response.json();
+                var cartCountEl = document.getElementById("cartCount");
+                cartCountEl.innerHTML = result;
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+</script>
 </html>

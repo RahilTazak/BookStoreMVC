@@ -4,53 +4,59 @@
     ViewData["Title"] = "GetUserCart";
 }
 
-<h2>My Cart</h2>
+<div style="width:90%;margin:auto" class="mt-2">
+    @if (Model != null)
+    {
+        <h5>My Cart</h5>
 
-<table class="table">
-    <thead>
-        <tr>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Book.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+        <table class="table table-striped">
             <tr>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.Book.Title)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => item.Book.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    <form asp-controller="CartItems" asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="BookId" value="@item.Id" />
-                        <button type="submit" class="bg-black text-white mt-3 py-2 px-2 fs-6">Delete</button>
-                    </form>
-                </td>
-               
-
+                <th>Book</th>
+                <th>Image</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Book.Title</td>
+                    <td>
+                        <img src="/Uploads/@item.Book.BookImage" style="width:80px;height:100px" />
+                    </td>
+                    <td>$@item.Book.Price X @item.Quantity</td>
+                    <td>$@(item.Book.Price * item.Quantity)</td>
+                    <td>
+                        @* Increase button *@
+                        <a class="btn bg-black text-white" href="/CartItems/UpdateCartQty?BookId=@item.BookId">+</a>
+                        @* Decrement button *@
+                        <a class="btn bg-black text-white" href="/CartItems/RemoveFromCart?BookId=@item.BookId">-</a>
+                    </td>
+                    <td>
+                        <form asp-controller="CartItems" asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="BookId" value="@item.Id" />
+                            <button type="submit" class="bg-black text-white mt-3 py-2 px-2 fs-6">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="my-2">
+            <h5>Total($): </h5>
+            <b>$@(Model.Select(item => item.Book.Price * item.Quantity).Sum())</b>
+        </div>
+
+        <div class="my-2">
+            <a class="btn bg-black text-white" href="#">Checkout</a>
+        </div>
+
+    }
+    else
+    {
+        <h5>Cart is empty</h5>
+    }
+</div>
+
+
+

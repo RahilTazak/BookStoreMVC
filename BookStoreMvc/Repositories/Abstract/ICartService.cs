@@ -11,8 +11,7 @@ namespace BookStoreMvc.Repositories.Abstract
 
         public Task<List<CartItem>> GetUserCart();
 
-
-
+        public Task<int> GetCartItemCount();
 
     }
 }

@@ -27,22 +27,30 @@ namespace BookStoreMvc.Controllers
         // POST: CartItems/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> AddToCart(int BookId)
         {
             var addedToCart = await _cartService.AddToCart(BookId);
             if (addedToCart == true)
             {
                 TempData["msg"] = "Added To Cart";
-                return 
-                    RedirectToAction("BookDetail","Home", new {BookId = BookId});
+                return
+                    RedirectToAction("BookDetail", "Home", new { BookId = BookId });
             }
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateCartQty(int BookId)
+        {
+            var updatedCart = await _cartService.AddToCart(BookId);
+            if (updatedCart == true)
+            {
+                // TempData["msg"] = "Added To Cart";
+                return RedirectToAction("GetUserCart");
+            }
+            return RedirectToAction("GetUserCart");
+        }
+
         public async Task<IActionResult> RemoveFromCart(int BookId)
         {
             var RemoveFromCart = await _cartService.RemoveFromCart(BookId);
@@ -58,10 +66,15 @@ namespace BookStoreMvc.Controllers
         {
 
             var userCart = await _cartService.GetUserCart();
-            
+
             return View(userCart);
+        }
+
+        public async Task<IActionResult> GetTotalItemInCart()
+        {
+            int cartItem = await _cartService.GetCartItemCount();
+            return Ok(cartItem);
         }
     }
 }
 
-        
