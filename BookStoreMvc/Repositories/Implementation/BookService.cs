@@ -78,12 +78,30 @@ namespace BookStoreMvc.Repositories.Implementation
             var data = new BookListVm();
            
             var list = ctx.Books.ToList();
-           
-           
+
+            //(from book in ctx.Books
+            // join bookgenre in ctx.BookGenres on book.Id equals bookgenre.BookId
+            // join genre in ctx.Genres on bookgenre.GenreId equals genre.Id
+            // select new { book, genre.GenreName }
+            //            )
+
+
+            foreach (var bookitem in list)
+            {
+                var genres = (from genre in ctx.Genres
+                              join mg in ctx.BookGenres
+                              on genre.Id equals mg.GenreId
+                              where mg.BookId == bookitem.Id
+                              select genre.GenreName
+                              ).ToList();
+                var genreNames = string.Join(", ", genres);
+                bookitem.GenreNames = genreNames;
+            }
+            
             if (!string.IsNullOrEmpty(term))
             {
                 term = term.ToLower();
-                list = list.Where(a => a.Title.ToLower().StartsWith(term)).ToList();
+                list = list.Where(a => a.Title.ToLower().Contains(term) || a.Price.ToString().Equals(term) || a.Author.ToLower().Contains(term) || a.GenreNames.ToLower().Contains(term) || a.ReleaseYear.ToLower().Contains(term)).ToList();
             }
 
             if (paging)
@@ -98,18 +116,8 @@ namespace BookStoreMvc.Repositories.Implementation
                 data.TotalPages = TotalPages;
             }
 
-            foreach (var Book in list)
-            {
-                var genres = (from genre in ctx.Genres
-                              join mg in ctx.BookGenres
-                              on genre.Id equals mg.GenreId
-                              where mg.BookId == Book.Id
-                              select genre.GenreName
-                              ).ToList();
-                var genreNames = string.Join(", ", genres);
-                Book.GenreNames = genreNames;
-            }
             data.BookList = list.AsQueryable();
+
             return data;
         }
 
