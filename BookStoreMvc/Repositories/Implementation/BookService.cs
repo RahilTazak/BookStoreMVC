@@ -101,7 +101,7 @@ namespace BookStoreMvc.Repositories.Implementation
             if (!string.IsNullOrEmpty(term))
             {
                 term = term.ToLower();
-                list = list.Where(a => a.Title.ToLower().Contains(term) || a.Price.ToString().Equals(term) || a.Author.ToLower().Contains(term) || a.GenreNames.ToLower().Contains(term) || a.ReleaseYear.ToLower().Contains(term)).ToList();
+                list = list.Where(a => a.Title.ToLower().Contains(term) || a.Price.ToString().Contains(term) || a.Author.ToLower().Contains(term) || a.GenreNames.ToLower().Contains(term) || a.ReleaseYear.ToLower().Contains(term)).ToList();
             }
 
             if (paging)
