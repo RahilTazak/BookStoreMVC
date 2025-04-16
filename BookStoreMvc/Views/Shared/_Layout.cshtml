@@ -1,6 +1,7 @@
 ﻿@{
     string username = User.Identity.Name;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,35 +27,36 @@
         <ul class="nav-link">
             <li><a class="active" href="/Home/Index">Home</a></li>
             <li><a href="/Home/About">About</a></li>
-            @if (User.IsInRole("Admin"))
-            {
-                <li>
-                    <a href="#">Admin <i class="fa fa-caret-down"></i></a>
+            @if (User.Identity.IsAuthenticated) {
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a href="#">Admin <i class="fa fa-caret-down"></i></a>
 
-                    <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
-                        <li><a href="/Genre/Add">Add Genre</a></li>
-                        <li><a href="/Book/Add">Add Book</a></li>
-                        <li><a href="/Book/BookList">Book List</a></li>
-                        <li><a href="/UserAuthentication/Logout">Logout</a></li>
-                    </ul>
-                </li>
-            }
-            else if (User.IsInRole("User"))
+                        <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
+                            <li><a href="/Genre/Add">Add Genre</a></li>
+                            <li><a href="/Book/Add">Add Book</a></li>
+                            <li><a href="/Book/BookList">Book List</a></li>
+                            <li><a href="/UserAuthentication/Logout">Logout</a></li>
+                        </ul>
+                    </li>
+                }
+                else if (User.IsInRole("User"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link gap-1" href="/CartItems/GetUserCart">
+                            Cart
+                            <span id="cartCount" class="badge bg-black text-white">0</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"><b>Hello @username! </b><i class="fa fa-caret-down"></i></a>
 
-            {
-                <li class="nav-item">
-                    <a class="nav-link gap-1" href="/CartItems/GetUserCart">
-                        Cart
-                        <span id="cartCount" class="badge bg-black text-white">0</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><b>Hello @username! </b><i class="fa fa-caret-down"></i></a>
-
-                    <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
-                        <li><a href="/UserAuthentication/Logout">Logout</a></li>
-                    </ul>
-                </li>
+                        <ul class="dropdown-nav-link" style="width: 180px; padding: 5px">
+                            <li><a href="/UserAuthentication/Logout">Logout</a></li>
+                        </ul>
+                    </li>
+                }
             }
             else
             {
@@ -90,4 +92,4 @@
         }
     }
 </script>
-</html>
+</html>l

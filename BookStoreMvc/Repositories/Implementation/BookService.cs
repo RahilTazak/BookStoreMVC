@@ -42,10 +42,10 @@ namespace BookStoreMvc.Repositories.Implementation
                 var data = this.GetById(id);
                 if (data == null)
                     return false;
-                var BookGenress= ctx.BookGenres.Where(a => a.BookId == data.Id);
-                foreach(var BookGenres in BookGenress)
+                var BookGenres= ctx.BookGenres.Where(a => a.BookId == data.Id);
+                foreach(var BookGenre in BookGenres)
                 {
-                    ctx.BookGenres.Remove(BookGenres);
+                    ctx.BookGenres.Remove(BookGenre);
                 }
                 ctx.Books.Remove(data);
                 ctx.SaveChanges();

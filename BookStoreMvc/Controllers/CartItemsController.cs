@@ -9,10 +9,12 @@ using BookStoreMvc.Models.DTO;
 using BookStoreMvc.Models.Domain;
 using BookStoreMvc.Repositories.Abstract;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace BookStoreMvc.Controllers
 {
+    [Authorize]
     public class CartItemsController : Controller
     {
         private readonly ICartService _cartService;

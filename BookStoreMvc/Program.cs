@@ -21,7 +21,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>()
     .AddDefaultTokenProviders();
 
-//builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
+//For redirecting unauthorized users to login page
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
 
 
 var app = builder.Build();
@@ -35,6 +36,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//To disable caching globally
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Cache-Control"] = "no-store, no-cache";
+    context.Response.Headers["Pragma"] = "no-cache";
+    context.Response.Headers["Expires"] = "0";
+    await next();
+});
 app.UseStaticFiles();
 
 app.UseRouting();
