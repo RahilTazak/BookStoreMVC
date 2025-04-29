@@ -17,10 +17,13 @@ namespace BookStoreMvc.Controllers
     [Authorize]
     public class CartItemsController : Controller
     {
+        private readonly DatabaseContext ctx;
+
         private readonly ICartService _cartService;
 
-        public CartItemsController(ICartService cartService)
+        public CartItemsController(DatabaseContext ctx, ICartService cartService)
         {
+            this.ctx = ctx;
             this._cartService = cartService;
         }
 
@@ -76,6 +79,33 @@ namespace BookStoreMvc.Controllers
         {
             int cartItem = await _cartService.GetCartItemCount();
             return Ok(cartItem);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Checkout()
+        {
+            var model = new OrderDetails();
+            ViewData["countries"] = new SelectList(ctx.Countries, "Id", "CountryName");
+            ViewData["cities"] = new SelectList(ctx.Cities, "Id", "CityName");
+            var UserId = _cartService.GetUserId();
+            model.UserId = UserId;
+            double totalOrderAmt = (double)ctx.CartItems.
+                    Where(a => a.UserId == UserId).Select(b => b.Book.Price * b.Quantity).Sum();
+            model.TotalOrderAmount = totalOrderAmt;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(OrderDetails order)
+        {
+            ViewData["countries"] = new SelectList(ctx.Countries, "Id", "CountryName",order.CountryId);
+            ViewData["cities"] = new SelectList(ctx.Cities, "Id", "CityName",order.CityId);
+            var cartItem = await _cartService.DoCheckout(order);
+            if (cartItem == true)
+            {
+                return RedirectToAction("GetUserCart");
+            }
+            return View();
         }
     }
 }

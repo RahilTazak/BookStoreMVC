@@ -4,6 +4,7 @@ using BookStoreMvc.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreMvc.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250417161136_UpdateOrderDetailsTBL")]
+    partial class UpdateOrderDetailsTBL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,12 +36,6 @@ namespace BookStoreMvc.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsOrdered")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -49,8 +46,6 @@ namespace BookStoreMvc.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("CartItems");
                 });
@@ -439,13 +434,7 @@ namespace BookStoreMvc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookStoreMvc.Models.Domain.OrderDetails", "Order")
-                        .WithMany("CartItems")
-                        .HasForeignKey("OrderId");
-
                     b.Navigation("Book");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("BookStoreMvc.Models.Domain.City", b =>
@@ -508,11 +497,6 @@ namespace BookStoreMvc.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookStoreMvc.Models.Domain.OrderDetails", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

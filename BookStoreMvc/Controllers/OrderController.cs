@@ -1,85 +1,30 @@
 ﻿using BookStoreMvc.Models.Domain;
+using BookStoreMvc.Models.DTO;
+using BookStoreMvc.Repositories.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 
 namespace BookStoreMvc.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: OrderController
-        public ActionResult Index()
+        private readonly DatabaseContext ctx;
+        private readonly ICartService cartService;
+
+        public OrderController(DatabaseContext ctx, ICartService cartService)
         {
-            return View();
+            this.ctx = ctx;
+            this.cartService = cartService;
         }
 
-        // GET: OrderController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public async Task<IActionResult> OrderList()    
         {
-            return View();
-        }
-
-        // GET: OrderController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: OrderController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateOrder(OrderDetails order)
-        {
-            try
-            {
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: OrderController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: OrderController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            string userId = cartService.GetUserId();
+            var ordersList = await ctx.OrderDetails.Include(a=>a.CartItems).Where(x => x.UserId == userId).ToListAsync();
+            return Ok(ordersList);
+        }       
     }
 }

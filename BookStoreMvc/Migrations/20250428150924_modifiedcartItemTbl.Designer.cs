@@ -4,6 +4,7 @@ using BookStoreMvc.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreMvc.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250428150924_modifiedcartItemTbl")]
+    partial class modifiedcartItemTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -439,13 +442,13 @@ namespace BookStoreMvc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookStoreMvc.Models.Domain.OrderDetails", "Order")
-                        .WithMany("CartItems")
+                    b.HasOne("BookStoreMvc.Models.Domain.OrderDetails", "order")
+                        .WithMany()
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Book");
 
-                    b.Navigation("Order");
+                    b.Navigation("order");
                 });
 
             modelBuilder.Entity("BookStoreMvc.Models.Domain.City", b =>
@@ -508,11 +511,6 @@ namespace BookStoreMvc.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookStoreMvc.Models.Domain.OrderDetails", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }
