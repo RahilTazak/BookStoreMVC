@@ -24,6 +24,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 //For redirecting unauthorized users to login page
 builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
 
+// For removing null fields in json results
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
 
 var app = builder.Build();
 

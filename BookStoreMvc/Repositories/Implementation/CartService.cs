@@ -148,7 +148,9 @@ namespace BookStoreMvc.Repositories.Implementation
                 double totalOrderAmt = (double)ctx.CartItems.Where(a => a.UserId == userId && a.OrderId == null)
                                                                          .Select(b => b.Book.Price * b.Quantity).Sum();
 
-                List<CartItem> cartItemsList = await ctx.CartItems.Where(a => a.UserId == userId).ToListAsync();
+                // get the items which are in the cart and have not been ordered yet
+                List<CartItem> cartItemsList = await ctx.CartItems
+                                                   .Where(a => a.UserId == userId && a.IsOrdered == false).ToListAsync();
 
                 order.CartItems = cartItemsList;   //debug at this point
 
@@ -157,11 +159,11 @@ namespace BookStoreMvc.Repositories.Implementation
                 order.CreatedOn = DateTime.Now;
                 order.OrderStatus = "Pending";
                 ctx.OrderDetails.Add(order);
-                await ctx.SaveChangesAsync();
+                await ctx.SaveChangesAsync(); //created OrderId in CartItems at this point
 
                 var cartItems = await ctx.CartItems.Where(c => c.UserId == userId && c.IsOrdered == false).ToListAsync();
 
-                // Link each cartItem to the newly created order
+                // update IsOrdered status to 'true' when order is placed
 
                 foreach (var cartItem in cartItems)
                 {
